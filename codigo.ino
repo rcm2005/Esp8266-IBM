@@ -143,6 +143,7 @@ void EnviaEstadoOutputMQTT(void) {
          EstadoSaida == '0';
     }
 
+
     MQTT.publish(TOPICO_PUBLISH_2, estadoLED.c_str()); // Publish color to "/TEF/lamp118/attrs/color"
 
 
