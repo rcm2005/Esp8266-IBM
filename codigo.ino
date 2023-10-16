@@ -124,36 +124,43 @@ void EnviaEstadoOutputMQTT(void) {
         estadoLED = "Red";
         digitalWrite(RED_LED_PIN, HIGH);
         digitalWrite(GREEN_LED_PIN, LOW);
+        digitalWrite(OUTPUT_PIN, HIGH);
         digitalWrite(BLUE_LED_PIN, LOW);
         Serial.print("Red");
         EstadoSaida = '1'; // Use "=" para atribuir 1 ao EstadoSaida
-      //  MQTT.publish(TOPICO_PUBLISH, "s|on");
-        Serial.println("- Humidity Ligado");
     } else if (polution > 33.0 && polution <= 66.0) {
         estadoLED = "Yellow";
         digitalWrite(RED_LED_PIN, LOW);
         digitalWrite(GREEN_LED_PIN, HIGH);
+        digitalWrite(OUTPUT_PIN, LOW);
         digitalWrite(BLUE_LED_PIN, LOW);
         Serial.print("Yellow");
         EstadoSaida = '0'; // Use "=" para atribuir 0 ao EstadoSaida
-      //  MQTT.publish(TOPICO_PUBLISH, "s|off");
-        Serial.println("- Humidity Desligado");
     } else {
         estadoLED = "Green";
         digitalWrite(RED_LED_PIN, LOW);
         digitalWrite(GREEN_LED_PIN, LOW);
+        digitalWrite(OUTPUT_PIN, LOW);
         digitalWrite(BLUE_LED_PIN, HIGH);
         Serial.print("Green");
         EstadoSaida = '0'; // Use "=" para atribuir 0 ao EstadoSaida
-       // MQTT.publish(TOPICO_PUBLISH, "s|off");
-        Serial.println("- Humidity Desligado");
     }
 
     MQTT.publish(TOPICO_PUBLISH_2, estadoLED.c_str()); // Publish color to "/TEF/lamp118/attrs/color"
 
 
 
-    
+    //verifica o estadoSaida
+    if (EstadoSaida == '1') {
+        MQTT.publish(TOPICO_PUBLISH, "s|on");
+        Serial.println("- Humidity Ligado");
+    }
+
+    if (EstadoSaida == '0') {
+        MQTT.publish(TOPICO_PUBLISH, "s|off");
+        Serial.println("- Humidity Desligado");
+    }
+
     Serial.println("- Estado do LED onboard enviado ao broker!");
     delay(1000);
 }
