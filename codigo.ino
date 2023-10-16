@@ -127,6 +127,8 @@ void EnviaEstadoOutputMQTT(void) {
         digitalWrite(BLUE_LED_PIN, LOW);
         Serial.print("Red");
         EstadoSaida = '1'; // Use "=" para atribuir 1 ao EstadoSaida
+        MQTT.publish(TOPICO_PUBLISH, "s|on");
+        Serial.println("- Humidity Ligado");
     } else if (polution > 33.0 && polution <= 66.0) {
         estadoLED = "Yellow";
         digitalWrite(RED_LED_PIN, LOW);
@@ -134,6 +136,8 @@ void EnviaEstadoOutputMQTT(void) {
         digitalWrite(BLUE_LED_PIN, LOW);
         Serial.print("Yellow");
         EstadoSaida = '0'; // Use "=" para atribuir 0 ao EstadoSaida
+        MQTT.publish(TOPICO_PUBLISH, "s|off");
+        Serial.println("- Humidity Desligado");
     } else {
         estadoLED = "Green";
         digitalWrite(RED_LED_PIN, LOW);
@@ -141,6 +145,8 @@ void EnviaEstadoOutputMQTT(void) {
         digitalWrite(BLUE_LED_PIN, HIGH);
         Serial.print("Green");
         EstadoSaida = '0'; // Use "=" para atribuir 0 ao EstadoSaida
+        MQTT.publish(TOPICO_PUBLISH, "s|off");
+        Serial.println("- Humidity Desligado");
     }
 
     MQTT.publish(TOPICO_PUBLISH_2, estadoLED.c_str()); // Publish color to "/TEF/lamp118/attrs/color"
