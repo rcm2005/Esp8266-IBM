@@ -1,38 +1,71 @@
-# Monitoramento de Qualidade do Ar com ESP8266
+# Projeto IoT com ESP8266 e MQTT
+<img src="./img-capa.jpeg" style="transform: rotate(90deg);">
+Este projeto é uma implementação de Internet das Coisas (IoT) usando o ESP8266 para controlar um dispositivo e coletar dados de um sensor. A comunicação entre o dispositivo e uma plataforma de backend é realizada através do protocolo MQTT.
 
-Este projeto consiste em um dispositivo de monitoramento de qualidade do ar utilizando um ESP8266 e o sensor de gás MQ7. O objetivo é detectar a presença de monóxido de carbono (CO) no ar e fornecer indicações visuais por meio de LEDs e um display LCD.
+## Visão Geral
 
-## Recursos
+O objetivo deste projeto é controlar um dispositivo, neste caso, um LED RGB, com base na leitura de um sensor de poluição. A cor do LED muda de acordo com a qualidade do ar medida pelo sensor, e o estado do LED é publicado em um tópico MQTT para que seja acompanhado em tempo real.
 
-- ESP8266
-- Sensor de gás MQ7
-- LEDs (verde, amarelo e vermelho)
+## Componentes do Projeto
 
+- ESP8266 (NodeMCU)
+- Sensor de Poluição
+- LED RGB
+- Plataforma de Backend MQTT
+- Acesso à rede Wi-Fi
 
-## Configuração
+## Configuração do Projeto
 
-1. Conecte o sensor de gás MQ7 ao pino analógico A0 do ESP8266.
-2. Conecte os LEDs aos pinos especificados no código.
-3. Conecte o display LCD aos pinos correspondentes do ESP8266.
-4. Faça o upload do código para o ESP8266.
+### Conexão do Hardware
 
-## Instruções de uso
+O hardware do projeto é montado da seguinte forma:
 
-- Certifique-se de calibrar o sensor MQ7 adequadamente antes de usar o projeto.
-- O LED verde indica ar limpo, o LED amarelo indica qualidade média e o LED vermelho indica ar ruim.
+- O sensor de poluição está conectado a uma porta analógica do ESP8266 (A0).
+- O LED RGB é conectado a três portas digitais do ESP8266 (D1, D2, D3).
+- Um LED indicador de estado é conectado a uma porta digital do ESP8266 (D4).
 
-- Mantenha o dispositivo em um local adequado para obter leituras precisas.
+### Configuração do Software
 
-## Contribuição
+- Você deve configurar suas credenciais de rede Wi-Fi (SSID e senha) no código.
+- Configure as informações do seu servidor MQTT, incluindo endereço e porta.
+- Defina os tópicos MQTT para subscrição e publicação.
 
-Contribuições para aprimoramento deste projeto são bem-vindas. Sinta-se à vontade para enviar pull requests com melhorias ou correções.
+## Funcionalidades do Projeto
+
+O projeto possui as seguintes funcionalidades:
+
+- Leitura do sensor de poluição para medir a qualidade do ar.
+- Controle do LED RGB com base na leitura do sensor: vermelho para alta poluição, amarelo para poluição moderada e verde para baixa poluição.
+- Publicação do estado do LED no tópico MQTT `/TEF/lamp118/attrs/color`.
+- Publicação do estado do dispositivo no tópico MQTT `/TEF/lamp118/attrs`.
+- Acompanhamento em tempo real do estado do dispositivo na plataforma de backend.
+
+## Uso do Protocolo MQTT
+
+O protocolo MQTT é usado para a comunicação entre o dispositivo e a plataforma de backend. Ele permite o monitoramento em tempo real do estado do dispositivo e a publicação de informações do sensor.
+
+## Como Executar o Projeto
+
+1. Carregue o código no ESP8266 usando a plataforma de desenvolvimento Arduino IDE.
+2. Conecte o hardware conforme as instruções fornecidas na seção de configuração do projeto.
+3. Monitore a saída no Serial Monitor da Arduino IDE para depuração e verificação do funcionamento do projeto.
+
+## Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para fazer melhorias ou adições a este projeto.
+
+## Autores
+
+- RM 98036 Henrique Pontes Oliveira
+- RM 98460 Felipe Capriotti da Silva Santos
+- RM 99679 Gustavo Kawamura Christofani
+- RM 550908 Vinicius Santos Yamashita de Farias
+- RM 99874 Rafael Carvalho Mattos
 
 ## Licença
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Este projeto é licenciado sob a [Sua Licença] - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes.
 
-## tinkercad
-https://www.tinkercad.com/things/bKQgxuuKfTC
 
 
 
