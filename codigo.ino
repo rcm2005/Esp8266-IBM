@@ -64,16 +64,7 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length) {
 
     Serial.print("- Mensagem recebida: ");
     Serial.println(msg);
-
-    if (msg.equals("lamp118@on|")) {
-        digitalWrite(OUTPUT_PIN, HIGH);
-        EstadoSaida = '1';
-    }
-
-    if (msg.equals("lamp118@off|")) {
-        digitalWrite(OUTPUT_PIN, LOW);
-        EstadoSaida = '0';
-    }
+  
 }
 
 void reconnectMQTT() {
@@ -120,7 +111,7 @@ void VerificaConexoesWiFIEMQTT(void) {
 void EnviaEstadoOutputMQTT(void) {
     String estadoLED;
     
-   if (polution <= 33.0) {
+   if (polution >= 50.0) {
         estadoLED = "Red";
         digitalWrite(RED_LED_PIN, HIGH);
         digitalWrite(GREEN_LED_PIN, LOW);
@@ -128,7 +119,7 @@ void EnviaEstadoOutputMQTT(void) {
         digitalWrite(BLUE_LED_PIN, LOW);
         Serial.print("Red");
         EstadoSaida = '1'; // Use "=" para atribuir 1 ao EstadoSaida
-    } else if (polution > 33.0 && polution <= 66.0) {
+    } else if (polution > 35.0 && polution <= 50.0) {
         estadoLED = "Yellow";
         digitalWrite(RED_LED_PIN, LOW);
         digitalWrite(GREEN_LED_PIN, HIGH);
@@ -147,8 +138,6 @@ void EnviaEstadoOutputMQTT(void) {
     }
 
     MQTT.publish(TOPICO_PUBLISH_2, estadoLED.c_str()); // Publish color to "/TEF/lamp118/attrs/color"
-
-
 
     //verifica o estadoSaida
     if (EstadoSaida == '1') {
@@ -200,13 +189,15 @@ void loop() {
 
     int sensorValue = analogRead(potPin);
     float voltage = sensorValue * (3.3 / 1024.0);
-    polution = map(sensorValue, 0, 1023, 0, 100);
+    polution = map(sensorValue, 100, 160, 0, 100); // Invertendo a faixa
     Serial.print("Voltage: ");
     Serial.print(voltage);
     Serial.print("V - ");
     Serial.print("Polution: ");
     Serial.print(polution);
-    Serial.println("%");
+    Serial.print("SENSOR MQ7: ");
+    Serial.print(sensorValue);
+    Serial.println("");
     dtostrf(polution, 4, 2, msgBuffer);
 
     EnviaEstadoOutputMQTT(); // Envie a cor do LED ao MQTT
