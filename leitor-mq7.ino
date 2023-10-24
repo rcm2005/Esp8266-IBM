@@ -2,8 +2,8 @@
 #include <PubSubClient.h>
 
 // Define suas credenciais WiFi
-const char* SSID = "HPMP-2G";
-const char* PASSWORD = "97531HeMpe";
+const char* SSID = "PONTES-4G";
+const char* PASSWORD = "oero1910";
 
 // Define as configurações MQTT
 const char* BROKER_MQTT = "46.17.108.113"; // Endereço do broker MQTT
@@ -16,13 +16,14 @@ const char* ID_MQTT = "fiware_108";
 // Define os pinos para os LEDs
 const int RED_LED_PIN = D1;
 const int GREEN_LED_PIN = D2;
-const int BLUE_LED_PIN = D3;
+const int BLUE_LED_PIN = D3; // yellow led
 const int OUTPUT_PIN = D4; // Pino de saída para o estado do LED
 
 WiFiClient espClient;
 PubSubClient MQTT(espClient);
 char EstadoSaida = '0';
 float polution = 0.0;
+int sensorValue = 0;
 
 void initSerial() {
     Serial.begin(115200);
@@ -111,7 +112,7 @@ void VerificaConexoesWiFIEMQTT(void) {
 void EnviaEstadoOutputMQTT(void) {
     String estadoLED;
     
-   if (polution >= 50.0) {
+   if (sensorValue >= 580) {
         estadoLED = "Red";
         digitalWrite(RED_LED_PIN, HIGH);
         digitalWrite(GREEN_LED_PIN, LOW);
@@ -119,7 +120,7 @@ void EnviaEstadoOutputMQTT(void) {
         digitalWrite(BLUE_LED_PIN, LOW);
         Serial.print("Red");
         EstadoSaida = '1'; // Use "=" para atribuir 1 ao EstadoSaida
-    } else if (polution > 35.0 && polution <= 50.0) {
+    } else if (sensorValue >= 565 && sensorValue <= 580) {
         estadoLED = "Yellow";
         digitalWrite(RED_LED_PIN, LOW);
         digitalWrite(GREEN_LED_PIN, HIGH);
@@ -187,13 +188,14 @@ void loop() {
     char msgBuffer[4];
     VerificaConexoesWiFIEMQTT();
 
-    int sensorValue = analogRead(potPin);
+    sensorValue = analogRead(potPin); // Atualiza o valor do sensor
     float voltage = sensorValue * (3.3 / 1024.0);
-    polution = map(sensorValue, 100, 160, 0, 100); // Invertendo a faixa
+    polution = map(sensorValue, 100, 160, 500, 620);//map(sensorValue, 100, 160, 0, 100); // Invertendo a faixa
     Serial.print("Voltage: ");
     Serial.print(voltage);
-    Serial.print("V - ");
-    Serial.print("Polution: ");
+    Serial.print("V ");
+    Serial.println("");
+    Serial.print("Particle: ");
     Serial.print(polution);
     Serial.print("SENSOR MQ7: ");
     Serial.print(sensorValue);
