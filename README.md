@@ -1,5 +1,5 @@
 # Projeto IoT com ESP8266 e MQTT
-<img src="./img-capa.jpeg" style="transform: rotate(90deg);">
+<img src="https://github.com/Pontessxx/Esp8266-IBM/blob/main/img-capa.jpg" style="transform: rotate(90deg);">
 Este projeto é uma implementação de Internet das Coisas (IoT) usando o ESP8266 para controlar um dispositivo e coletar dados de um sensor. A comunicação entre o dispositivo e uma plataforma de backend é realizada através do protocolo MQTT.
 <br>
 <br>
