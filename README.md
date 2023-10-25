@@ -1,18 +1,27 @@
 # Projeto IoT com ESP8266 e MQTT
 <img src="./img-capa.jpeg" style="transform: rotate(90deg);">
 Este projeto é uma implementação de Internet das Coisas (IoT) usando o ESP8266 para controlar um dispositivo e coletar dados de um sensor. A comunicação entre o dispositivo e uma plataforma de backend é realizada através do protocolo MQTT.
+<br>
+<br>
+link da demonstração : https://youtu.be/rdE8vRlFGoU
 
 ## Visão Geral
 
 O objetivo deste projeto é controlar um dispositivo, neste caso, um LED RGB, com base na leitura de um sensor de poluição. A cor do LED muda de acordo com a qualidade do ar medida pelo sensor, e o estado do LED é publicado em um tópico MQTT para que seja acompanhado em tempo real.
 
-## Componentes do Projeto
+## Recursos Necessários
 
+### Hardware
 - ESP8266 (NodeMCU)
 - Sensor de Poluição
 - LED RGB
-- Plataforma de Backend MQTT
-- Acesso à rede Wi-Fi
+- LED Indicador de Estado
+- Cabos e protoboard para conexões
+
+### Software
+- Arduino IDE ou outra plataforma de desenvolvimento compatível com o ESP8266
+- Bibliotecas necessárias, como a biblioteca `PubSubClient` para MQTT
+- Servidor MQTT na plataforma de backend
 
 ## Configuração do Projeto
 
@@ -50,9 +59,23 @@ O protocolo MQTT é usado para a comunicação entre o dispositivo e a plataform
 2. Conecte o hardware conforme as instruções fornecidas na seção de configuração do projeto.
 3. Monitore a saída no Serial Monitor da Arduino IDE para depuração e verificação do funcionamento do projeto.
 
+## Instruções Adicionais
+
+- Certifique-se de configurar uma plataforma de backend MQTT compatível para receber as mensagens do dispositivo.
+- Mantenha as credenciais de segurança do dispositivo e da plataforma MQTT seguras.
+
 ## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para fazer melhorias ou adições a este projeto.
+
+## Autores
+
+- RM 98036 Henrique Pontes Oliveira
+- RM 98460 Felipe Capriotti da Silva Santos
+- RM 99679 Gustavo Kawamura Christofani
+- RM 550908 Vinicius Santos Yamashita de Farias
+- RM 99874 Rafael Carvalho Mattos
+
 
 ## Autores
 
